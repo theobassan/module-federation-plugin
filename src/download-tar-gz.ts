@@ -11,12 +11,7 @@ const downloadTarGz = async (name: string, url: string, outputPath: string): Pro
 
     console.log(`[ModuleFederationPluginRemote] Downloading module "${name}" type files`);
 
-    let saved = true;
-    try {
-        saved = await downloadFile(tarGzURL, targetFile);
-    } catch {
-        saved = false;
-    }
+    const saved = await downloadFile(tarGzURL, targetFile);
     if (!saved) {
         const errorMessage = `[ModuleFederationPluginRemote] Failed to download module "${name}" type files`;
         console.log(errorMessage);

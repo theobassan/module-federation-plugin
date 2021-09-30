@@ -7,19 +7,23 @@ const downloadFile = (url: string, targetPath: string): Promise<boolean> => {
 
     return new Promise<boolean>((resolve) => {
         const target = fs.createWriteStream(targetPath);
-        get(url, (response) => {
-            response
-                .pipe(target)
-                .on('close', () => {
-                    resolve(true);
-                })
-                .on('finish', () => {
-                    resolve(true);
-                })
-                .on('error', () => {
-                    resolve(false);
-                });
-        });
+        try {
+            get(url, (response) => {
+                response
+                    .pipe(target)
+                    .on('close', () => {
+                        resolve(true);
+                    })
+                    .on('finish', () => {
+                        resolve(true);
+                    })
+                    .on('error', () => {
+                        resolve(false);
+                    });
+            });
+        } catch {
+            resolve(false);
+        }
     });
 };
 
