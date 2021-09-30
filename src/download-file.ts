@@ -6,24 +6,22 @@ const downloadFile = (url: string, targetPath: string): Promise<boolean> => {
     const get = url.includes('https://') ? https.get : http.get;
 
     return new Promise<boolean>((resolve) => {
-        const target = fs.createWriteStream(targetPath);
-        try {
-            get(url, (response) => {
-                response
-                    .pipe(target)
-                    .on('close', () => {
-                        resolve(true);
-                    })
-                    .on('finish', () => {
-                        resolve(true);
-                    })
-                    .on('error', () => {
-                        resolve(false);
-                    });
-            });
-        } catch {
+        get(url, (response) => {
+            const target = fs.createWriteStream(targetPath);
+            response
+                .pipe(target)
+                .on('close', () => {
+                    resolve(true);
+                })
+                .on('finish', () => {
+                    resolve(true);
+                })
+                .on('error', () => {
+                    resolve(false);
+                });
+        }).on('error', () => {
             resolve(false);
-        }
+        });
     });
 };
 
