@@ -1,6 +1,6 @@
 {
   "name": "@theobassan/module-federation-plugin",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Create types for exposed componentes, and download then for remotes",
   "license": "WTFPL",
   "keywords": [
