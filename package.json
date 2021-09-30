@@ -81,7 +81,6 @@
     "contents": ".",
     "releaseDraft": true,
     "testScript": "test:all",
-    "2fa": false,
-    "message": "\"Version %s created\""
+    "2fa": false
   }
 }
