@@ -1,6 +1,6 @@
 import { Compiler, WebpackPluginInstance } from 'webpack';
-import { ModuleFederationExposeTypesPlugin } from './module-federation-expose-plugin';
-import { ModuleFederationRemoteTypesPlugin } from './module-federation-remote-plugin';
+import { ModuleFederationPluginExpose } from './module-federation-plugin-expose';
+import { ModuleFederationPluginRemote } from './module-federation-plugin-remote';
 
 interface ModuleFederationPluginOptions {
     name: string;
@@ -21,7 +21,7 @@ class ModuleFederationPlugin implements WebpackPluginInstance {
 
     apply(compiler: Compiler): void {
         if (this.options.exposes != null && Object.keys(this.options.exposes).length > 0) {
-            new ModuleFederationExposeTypesPlugin({
+            new ModuleFederationPluginExpose({
                 name: this.options.name,
                 filename: this.options.filename,
                 exposes: this.options.exposes,
@@ -32,7 +32,7 @@ class ModuleFederationPlugin implements WebpackPluginInstance {
         }
 
         if (this.options.remotes != null && Object.keys(this.options.remotes).length > 0) {
-            new ModuleFederationRemoteTypesPlugin({
+            new ModuleFederationPluginRemote({
                 name: this.options.name,
                 filename: this.options.filename,
                 remotes: this.options.remotes,

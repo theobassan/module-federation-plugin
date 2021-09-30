@@ -1,7 +1,7 @@
 import { Compiler, Compilation, container, WebpackPluginInstance, sources } from 'webpack';
 import { buildTarGzBuffer } from './tar-gz-buffer-builder';
 
-export interface ModuleFederationExposeTypesPluginOptions {
+export interface ModuleFederationPluginExposeOptions {
     name: string;
     filename: string;
     exposes: Record<string, string>;
@@ -20,10 +20,10 @@ const getModuleFederationEmitPath = (exposedModuleFileName: string): string => {
     return '';
 };
 
-class ModuleFederationExposeTypesPlugin implements WebpackPluginInstance {
-    private options: ModuleFederationExposeTypesPluginOptions;
+class ModuleFederationPluginExpose implements WebpackPluginInstance {
+    private options: ModuleFederationPluginExposeOptions;
 
-    constructor(options: ModuleFederationExposeTypesPluginOptions) {
+    constructor(options: ModuleFederationPluginExposeOptions) {
         this.options = options;
     }
 
@@ -37,12 +37,12 @@ class ModuleFederationExposeTypesPlugin implements WebpackPluginInstance {
             shared: this.options.shared,
         }).apply(compiler);
 
-        compiler.hooks.thisCompilation.tap('ModuleFederationExposeTypesPlugin', (compilation: Compilation) => {
+        compiler.hooks.thisCompilation.tap('ModuleFederationPluginExpose', (compilation: Compilation) => {
             const exposedModuleComponents = this.options.exposes ?? {};
             const exposedModuleName = this.options.name ?? 'app';
             const exposedModuleType = this.options.type;
 
-            console.log(`[ModuleFederationExposeTypesPlugin] generating module "${exposedModuleName}" type files`);
+            console.log(`[ModuleFederationPluginExpose] generating module "${exposedModuleName}" type files`);
 
             const outputPath = getModuleFederationEmitPath(this.options.filename);
             const outputFileName = `${outputPath}${exposedModuleName}.tar.gz`;
@@ -58,4 +58,4 @@ class ModuleFederationExposeTypesPlugin implements WebpackPluginInstance {
     }
 }
 
-export { ModuleFederationExposeTypesPlugin };
+export { ModuleFederationPluginExpose };

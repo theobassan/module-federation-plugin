@@ -4,7 +4,7 @@ import { downloadTarGz } from './download-tar-gz';
 
 const download = async (remotes: Record<string, string>): Promise<void> => {
     for (const [remoteModuleName, remoteModulePath] of Object.entries(remotes)) {
-        console.log(`[ModuleFederationRemoteTypesPlugin] downloading module "${remoteModuleName}" type files`);
+        console.log(`[ModuleFederationPluginRemote] downloading module "${remoteModuleName}" type files`);
 
         const outputPath = `node_modules/@types/${remoteModuleName}`;
 
