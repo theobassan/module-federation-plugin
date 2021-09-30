@@ -42,7 +42,7 @@ class ModuleFederationPluginExpose implements WebpackPluginInstance {
             const exposedModuleName = this.options.name ?? 'app';
             const exposedModuleType = this.options.type;
 
-            console.log(`[ModuleFederationPluginExpose] generating module "${exposedModuleName}" type files`);
+            console.log(`[ModuleFederationPluginExpose] Generating module "${exposedModuleName}" type files`);
 
             const outputPath = getModuleFederationEmitPath(this.options.filename);
             const outputFileName = `${outputPath}${exposedModuleName}.tar.gz`;

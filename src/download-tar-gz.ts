@@ -9,9 +9,16 @@ const downloadTarGz = async (name: string, url: string, outputPath: string): Pro
     const tarGzURL = `${url}${url.endsWith('/') ? '' : '/'}${tarGzFileName}`;
     const targetFile = path.resolve(outputPath, tarGzFileName);
 
-    const saved = await downloadFile(tarGzURL, targetFile);
-    if (!saved) {
-        console.error('Failed to download remote DTS: ', tarGzURL);
+    console.log(`[ModuleFederationPluginRemote] Downloading module "${name}" type files`);
+
+    const errorMessage = `[ModuleFederationPluginRemote] Failed to download module "${name}" type files`;
+    try {
+        const saved = await downloadFile(tarGzURL, targetFile);
+        if (!saved) {
+            console.error(errorMessage);
+        }
+    } catch {
+        console.error(errorMessage);
     }
 
     await tar.x({
