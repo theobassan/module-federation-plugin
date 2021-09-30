@@ -19,6 +19,8 @@
   "scripts": {
     "release": "np",
     "prepare": "husky install",
+    "prepublishOnly": "npm run build && npm pack",
+    "postpublish": "npm run delete:build && npm run delete:pack",
     "build": "tsc --declaration",
     "delete:build": "rm -rf lib",
     "delete:pack": "rm -rf theobassan-module-federation-plugin-*",
