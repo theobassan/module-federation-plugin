@@ -10,12 +10,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://theobassan/module-federation-plugin"
+    "url": "git+https://github.com/theobassan/module-federation-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/heobassan/module-federation-types-plugin/issues"
+    "url": "https://github.com/theobassan/module-federation-plugin/issues"
   },
-  "homepage": "https://github.com/theobassan/module-federation-types-plugin#readme",
+  "homepage": "https://github.com/theobassan/module-federation-plugin#readme",
   "scripts": {
     "release": "np",
     "prepare": "husky install",
@@ -72,7 +72,7 @@
   },
   "np": {
     "branch": "main",
-    "cleanup": true,
+    "cleanup": false,
     "tests": true,
     "publish": true,
     "preview": false,
