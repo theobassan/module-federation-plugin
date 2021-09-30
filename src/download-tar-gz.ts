@@ -11,21 +11,22 @@ const downloadTarGz = async (name: string, url: string, outputPath: string): Pro
 
     console.log(`[ModuleFederationPluginRemote] Downloading module "${name}" type files`);
 
-    const errorMessage = `[ModuleFederationPluginRemote] Failed to download module "${name}" type files`;
+    let saved = true;
     try {
-        const saved = await downloadFile(tarGzURL, targetFile);
-        if (!saved) {
-            console.error(errorMessage);
-        }
+        saved = await downloadFile(tarGzURL, targetFile);
     } catch {
-        console.error(errorMessage);
+        saved = false;
     }
-
-    await tar.x({
-        file: targetFile,
-        cwd: outputPath,
-    });
-    await fs.remove(targetFile);
+    if (!saved) {
+        const errorMessage = `[ModuleFederationPluginRemote] Failed to download module "${name}" type files`;
+        console.log(errorMessage);
+    } else {
+        await tar.x({
+            file: targetFile,
+            cwd: outputPath,
+        });
+        await fs.remove(targetFile);
+    }
 };
 
 export { downloadTarGz };
