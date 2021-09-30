@@ -8,11 +8,6 @@
     "Module Federation Plugin",
     "TypeScript"
   ],
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
   "repository": {
     "type": "git",
     "url": "git://theobassan/module-federation-plugin"
@@ -28,7 +23,7 @@
     "postpublish": "npm run delete:build && npm run delete:pack",
     "build": "tsc --declaration",
     "delete:build": "rm -rf lib",
-    "delete:pack": "rm -rf module-federation-plugin-*",
+    "delete:pack": "rm -rf theobassan-module-federation-plugin-*",
     "test:all": "npm test && npm run lint",
     "test": "echo \"Error: no test specified\"",
     "lint": "eslint '*/**/*.ts'",
@@ -66,7 +61,13 @@
     "gzip-js": "^0.3.2",
     "tar": "^6.1.11"
   },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "np": {
@@ -80,6 +81,7 @@
     "contents": ".",
     "releaseDraft": true,
     "testScript": "test:all",
+    "2fa": false,
     "message": "\"Version %s created\""
   }
 }
