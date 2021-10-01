@@ -13,11 +13,11 @@ module.exports = {
         'no-null/no-null': 2,
         '@typescript-eslint/no-unused-vars': 2,
         '@theobassan/max-params': ['error', { max: 1, allowArraysCallbacks: true }],
-        'max-depth': ['error', { max: 10 }], //2
-        'max-lines': ['error', { max: 150 }], //60
-        'max-lines-per-function': ['error', { max: 300 }], //30
+        'max-depth': ['error', { max: 3 }],
+        'max-lines': ['error', { max: 60 }],
+        'max-lines-per-function': ['error', { max: 30 }],
         'max-nested-callbacks': ['error', { max: 3 }],
-        'max-statements': ['error', { max: 20 }], //10
+        'max-statements': ['error', { max: 10 }],
         'max-statements-per-line': ['error', { max: 1 }],
     },
 };
