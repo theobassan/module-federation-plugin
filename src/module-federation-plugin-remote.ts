@@ -25,8 +25,7 @@ class ModuleFederationPluginRemote implements WebpackPluginInstance {
             shared: this.options.shared,
         }).apply(compiler);
 
-        //TODO dont download with dev server watch rebuild
-        compiler.hooks.thisCompilation.tap('ModuleFederationPluginRemote', async () => {
+        compiler.hooks.afterPlugins.tap('ModuleFederationPluginRemote', async () => {
             await download(this.options.remotes);
         });
     }
