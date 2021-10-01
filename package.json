@@ -37,7 +37,7 @@
     ]
   },
   "devDependencies": {
-    "@theobassan/eslint-plugin": "^1.1.1",
+    "@theobassan/eslint-plugin": "^1.1.2",
     "@types/fs-extra": "^9.0.13",
     "@types/gzip-js": "^0.3.3",
     "@types/node": "^16.10.2",
