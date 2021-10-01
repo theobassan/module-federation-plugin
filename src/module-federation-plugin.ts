@@ -2,7 +2,7 @@ import { Compiler, WebpackPluginInstance } from 'webpack';
 import { ModuleFederationPluginExpose } from './module-federation-plugin-expose';
 import { ModuleFederationPluginRemote } from './module-federation-plugin-remote';
 
-interface ModuleFederationPluginOptions {
+type ModuleFederationPluginOptions = {
     name: string;
     filename: string;
     exposes?: Record<string, string>;
@@ -10,7 +10,9 @@ interface ModuleFederationPluginOptions {
     shared?: Record<string, Record<string, string>>;
     propsRegex?: string;
     type?: 'react' | 'react-fc';
-}
+};
+
+const hasAnyKey = (record?: Record<string, string>): boolean => record != undefined && Object.keys(record).length > 0;
 
 class ModuleFederationPlugin implements WebpackPluginInstance {
     private options: ModuleFederationPluginOptions;
@@ -20,22 +22,24 @@ class ModuleFederationPlugin implements WebpackPluginInstance {
     }
 
     apply(compiler: Compiler): void {
-        if (this.options.exposes != null && Object.keys(this.options.exposes).length > 0) {
+        if (hasAnyKey(this.options.exposes)) {
+            const exposes = this.options.exposes as Record<string, string>;
             new ModuleFederationPluginExpose({
                 name: this.options.name,
                 filename: this.options.filename,
-                exposes: this.options.exposes,
+                exposes,
                 shared: this.options.shared,
                 propsRegex: this.options.propsRegex,
                 type: this.options.type,
             }).apply(compiler);
         }
 
-        if (this.options.remotes != null && Object.keys(this.options.remotes).length > 0) {
+        if (hasAnyKey(this.options.remotes)) {
+            const remotes = this.options.remotes as Record<string, string>;
             new ModuleFederationPluginRemote({
                 name: this.options.name,
                 filename: this.options.filename,
-                remotes: this.options.remotes,
+                remotes,
                 shared: this.options.shared,
             }).apply(compiler);
         }

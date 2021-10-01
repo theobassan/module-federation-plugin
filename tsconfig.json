@@ -5,7 +5,8 @@
     "removeComments": true,
     "outDir": "lib",
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "noImplicitAny": true
   },
   "include": [
     "src/**/*"

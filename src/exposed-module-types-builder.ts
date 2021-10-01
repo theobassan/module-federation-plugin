@@ -1,40 +1,33 @@
-import path from 'path';
+import { buildExposedModuleTypesAny } from './exposed-module-types-any-builder';
+import { buildExposedModuleTypesWithProps } from './exposed-module-types-with-props-builder';
 
-import { buildContent, buildPropsContent } from './content-builder';
+const isEmpty = (str: string): boolean => str.length === 0 || !str.trim();
+const isBlank = (str: string): boolean => isEmpty(str) || /^\s*$/.test(str);
+const shouldCreateProps = (exposedPropsRegex?: string): boolean =>
+    exposedPropsRegex != undefined && !isBlank(exposedPropsRegex);
 
-const cwd = process.cwd();
-
-const buildExposedModuleTypes = (
-    exposedModuleName: string,
-    exposedFile: string,
-    exposedPath: string,
-    exposedModuleType?: 'react' | 'react-fc',
-    exposedPropsRegex?: string,
-): Array<Record<string, string>> => {
-    const data: Array<Record<string, string>> = [];
-
-    const exposedFilePath = path.resolve(cwd, exposedPath);
-    const exposedFileName = exposedFile.replace('./', '');
-
-    const filename = `${exposedFileName}.d.ts`;
-    const content = buildContent(exposedModuleName, exposedFileName, exposedModuleType, exposedPropsRegex);
-
-    data.push({
-        name: filename,
-        content: content,
-    });
-
-    if (exposedPropsRegex != null && exposedPropsRegex !== '') {
-        const propsFilename = `${exposedFileName}${exposedPropsRegex}.d.ts`;
-        const propsContent = buildPropsContent(exposedFileName, exposedFilePath, exposedPropsRegex);
-
-        data.push({
-            name: propsFilename,
-            content: propsContent,
+const buildExposedModuleTypes = (options: {
+    exposedModuleName: string;
+    exposedFile: string;
+    exposedPath: string;
+    exposedModuleType?: 'react' | 'react-fc';
+    exposedPropsRegex?: string;
+}): Array<Record<string, string>> => {
+    if (shouldCreateProps(options.exposedPropsRegex)) {
+        return buildExposedModuleTypesWithProps({
+            exposedModuleName: options.exposedModuleName,
+            exposedFile: options.exposedFile,
+            exposedPath: options.exposedPath,
+            exposedPropsRegex: options.exposedPropsRegex as string,
+            exposedModuleType: options.exposedModuleType,
+        });
+    } else {
+        return buildExposedModuleTypesAny({
+            exposedModuleName: options.exposedModuleName,
+            exposedFile: options.exposedFile,
+            exposedModuleType: options.exposedModuleType,
         });
     }
-
-    return data;
 };
 
 export { buildExposedModuleTypes };

@@ -11,7 +11,7 @@ const download = async (remotes: Record<string, string>): Promise<void> => {
         const url = splited.join('/');
 
         await fs.ensureDir(outputPath);
-        await downloadTarGz(remoteModuleName, url, outputPath);
+        await downloadTarGz({ name: remoteModuleName, url, outputPath });
     }
 };
 

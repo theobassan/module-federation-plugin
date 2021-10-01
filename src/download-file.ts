@@ -2,23 +2,30 @@ import fs from 'fs';
 import https from 'https';
 import http from 'http';
 
-const downloadFile = (url: string, targetPath: string): Promise<boolean> => {
-    const get = url.includes('https://') ? https.get : http.get;
+const resolveContent = (options: { response: http.IncomingMessage; target: fs.WriteStream }): Promise<boolean> => {
+    return new Promise<boolean>((resolve) => {
+        options.response
+            .pipe(options.target)
+            .on('close', () => {
+                resolve(true);
+            })
+            .on('finish', () => {
+                resolve(true);
+            })
+            .on('error', () => {
+                resolve(false);
+            });
+    });
+};
+
+const downloadFile = (options: { url: string; targetPath: string }): Promise<boolean> => {
+    const get = options.url.includes('https://') ? https.get : http.get;
 
     return new Promise<boolean>((resolve) => {
-        get(url, (response) => {
-            const target = fs.createWriteStream(targetPath);
-            response
-                .pipe(target)
-                .on('close', () => {
-                    resolve(true);
-                })
-                .on('finish', () => {
-                    resolve(true);
-                })
-                .on('error', () => {
-                    resolve(false);
-                });
+        get(options.url, (response) => {
+            const target = fs.createWriteStream(options.targetPath);
+
+            resolve(resolveContent({ response, target }));
         }).on('error', () => {
             resolve(false);
         });

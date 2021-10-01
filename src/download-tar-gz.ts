@@ -4,21 +4,21 @@ import tar from 'tar';
 
 import { downloadFile } from './download-file';
 
-const downloadTarGz = async (name: string, url: string, outputPath: string): Promise<void> => {
-    const tarGzFileName = `${name}.tar.gz`;
-    const tarGzURL = `${url}${url.endsWith('/') ? '' : '/'}${tarGzFileName}`;
-    const targetFile = path.resolve(outputPath, tarGzFileName);
+const downloadTarGz = async (options: { name: string; url: string; outputPath: string }): Promise<void> => {
+    const tarGzFileName = `${options.name}.tar.gz`;
+    const tarGzURL = `${options.url}${options.url.endsWith('/') ? '' : '/'}${tarGzFileName}`;
+    const targetFile = path.resolve(options.outputPath, tarGzFileName);
 
-    console.log(`[ModuleFederationPluginRemote] Downloading module "${name}" type files`);
+    console.log(`[ModuleFederationPluginRemote] Downloading module "${options.name}" type files`);
 
-    const saved = await downloadFile(tarGzURL, targetFile);
+    const saved = await downloadFile({ url: tarGzURL, targetPath: targetFile });
     if (!saved) {
-        const errorMessage = `[ModuleFederationPluginRemote] Failed to download module "${name}" type files`;
+        const errorMessage = `[ModuleFederationPluginRemote] Failed to download module "${options.name}" type files`;
         console.log(errorMessage);
     } else {
         await tar.x({
             file: targetFile,
-            cwd: outputPath,
+            cwd: options.outputPath,
         });
         await fs.remove(targetFile);
     }

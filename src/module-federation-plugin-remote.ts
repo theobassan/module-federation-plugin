@@ -1,12 +1,12 @@
 import { Compiler, container, WebpackPluginInstance } from 'webpack';
 import { download } from './download';
 
-interface ModuleFederationPluginRemoteOptions {
+type ModuleFederationPluginRemoteOptions = {
     name: string;
     filename: string;
     remotes: Record<string, string>;
     shared?: Record<string, Record<string, string>>;
-}
+};
 
 class ModuleFederationPluginRemote implements WebpackPluginInstance {
     private options: ModuleFederationPluginRemoteOptions;
@@ -25,6 +25,7 @@ class ModuleFederationPluginRemote implements WebpackPluginInstance {
             shared: this.options.shared,
         }).apply(compiler);
 
+        //TODO dont download with dev server watch rebuild
         compiler.hooks.thisCompilation.tap('ModuleFederationPluginRemote', async () => {
             await download(this.options.remotes);
         });

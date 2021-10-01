@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "@theobassan/eslint-plugin": "^1.1.0",
     "@types/fs-extra": "^9.0.13",
     "@types/gzip-js": "^0.3.3",
     "@types/node": "^16.10.2",
@@ -46,7 +47,9 @@
     "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-no-null": "^1.0.2",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-rule-composer": "^0.3.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "np": "^7.5.0",

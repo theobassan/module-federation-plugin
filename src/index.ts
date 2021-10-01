@@ -6,7 +6,5 @@
 */
 
 import { ModuleFederationPlugin } from './module-federation-plugin';
-import { ModuleFederationPluginExpose } from './module-federation-plugin-expose';
-import { ModuleFederationPluginRemote } from './module-federation-plugin-remote';
 
-export { ModuleFederationPlugin, ModuleFederationPluginExpose, ModuleFederationPluginRemote };
+export { ModuleFederationPlugin };
