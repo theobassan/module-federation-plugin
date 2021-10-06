@@ -1,4 +1,5 @@
 import { Compiler, WebpackPluginInstance } from 'webpack';
+import { BootstrapfyOutputPlugin } from './bootstrapfy-output-plugin';
 import { ModuleFederationPluginExpose } from './module-federation-plugin-expose';
 import { ModuleFederationPluginRemote } from './module-federation-plugin-remote';
 
@@ -10,6 +11,7 @@ type ModuleFederationPluginOptions = {
     shared?: Record<string, Record<string, string>>;
     propsRegex?: string;
     type?: 'react' | 'react-fc';
+    bootstrapfyOutput?: boolean;
 };
 
 const hasAnyKey = (record?: Record<string, string>): boolean => record != undefined && Object.keys(record).length > 0;
@@ -42,6 +44,10 @@ class ModuleFederationPlugin implements WebpackPluginInstance {
                 remotes,
                 shared: this.options.shared,
             }).apply(compiler);
+        }
+
+        if (this.options.bootstrapfyOutput == true) {
+            new BootstrapfyOutputPlugin().apply(compiler);
         }
     }
 }

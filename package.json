@@ -36,7 +36,7 @@
     ]
   },
   "devDependencies": {
-    "@theobassan/eslint-plugin": "^1.1.2",
+    "@theobassan/eslint-plugin": "^1.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/gzip-js": "^0.3.3",
     "@types/node": "^16.10.2",
@@ -57,10 +57,10 @@
     "webpack": "^5.55.1"
   },
   "dependencies": {
-    "@tsconfig/node16": "^1.0.2",
     "fs-extra": "^10.0.0",
     "gzip-js": "^0.3.2",
-    "tar": "^6.1.11"
+    "tar": "^6.1.11",
+    "webpack-virtual-modules": "^0.4.3"
   },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
