@@ -5,7 +5,7 @@ export type ModuleFederationPluginExposeOptions = {
     name: string;
     filename: string;
     exposes: Record<string, string>;
-    shared?: Record<string, Record<string, string>>;
+    shared?: Record<string, Record<string, string | boolean>>;
     propsRegex?: string;
     type?: 'react' | 'react-fc';
 };

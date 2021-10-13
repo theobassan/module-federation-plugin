@@ -5,7 +5,7 @@ type ModuleFederationPluginRemoteOptions = {
     name: string;
     filename: string;
     remotes: Record<string, string>;
-    shared?: Record<string, Record<string, string>>;
+    shared?: Record<string, Record<string, string | boolean>>;
 };
 
 class ModuleFederationPluginRemote implements WebpackPluginInstance {

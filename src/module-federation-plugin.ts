@@ -8,7 +8,7 @@ type ModuleFederationPluginOptions = {
     filename: string;
     exposes?: Record<string, string>;
     remotes?: Record<string, string>;
-    shared?: Record<string, Record<string, string>>;
+    shared?: Record<string, Record<string, string | boolean>>;
     propsRegex?: string;
     type?: 'react' | 'react-fc';
     bootstrapfyOutput?: boolean;
